@@ -34,6 +34,9 @@ public class ventanaGeneral extends javax.swing.JFrame {
     private void initComponents() {
 
         jToggleButton1 = new javax.swing.JToggleButton();
+        mapa = new javax.swing.JButton();
+        hacha = new javax.swing.JButton();
+        llave = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         action2 = new javax.swing.JButton();
         action1 = new javax.swing.JButton();
@@ -43,7 +46,7 @@ public class ventanaGeneral extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         description = new javax.swing.JTextArea();
         jScrollPane1 = new javax.swing.JScrollPane();
-        inventario = new javax.swing.JList<>();
+        inventario = new javax.swing.JList<String>();
         jPanel1 = new javax.swing.JPanel();
         history = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -55,6 +58,45 @@ public class ventanaGeneral extends javax.swing.JFrame {
         setMaximumSize(new java.awt.Dimension(830, 730));
         setPreferredSize(new java.awt.Dimension(830, 730));
         getContentPane().setLayout(null);
+
+        mapa.setBackground(new java.awt.Color(0, 0, 0));
+        mapa.setForeground(new java.awt.Color(255, 255, 255));
+        mapa.setText("Usar mapa");
+        mapa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 102, 102), new java.awt.Color(153, 153, 153), new java.awt.Color(153, 102, 0), new java.awt.Color(153, 51, 0)));
+        mapa.setFocusable(false);
+        mapa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mapaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(mapa);
+        mapa.setBounds(640, 410, 150, 21);
+
+        hacha.setBackground(new java.awt.Color(0, 0, 0));
+        hacha.setForeground(new java.awt.Color(255, 255, 255));
+        hacha.setText("Usar hacha");
+        hacha.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 102, 102), new java.awt.Color(153, 153, 153), new java.awt.Color(153, 102, 0), new java.awt.Color(153, 51, 0)));
+        hacha.setFocusable(false);
+        hacha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hachaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(hacha);
+        hacha.setBounds(640, 450, 150, 21);
+
+        llave.setBackground(new java.awt.Color(0, 0, 0));
+        llave.setForeground(new java.awt.Color(255, 255, 255));
+        llave.setText("Usar llave");
+        llave.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 102, 102), new java.awt.Color(153, 153, 153), new java.awt.Color(153, 102, 0), new java.awt.Color(153, 51, 0)));
+        llave.setFocusable(false);
+        llave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                llaveActionPerformed(evt);
+            }
+        });
+        getContentPane().add(llave);
+        llave.setBounds(640, 490, 150, 21);
 
         jButton5.setBackground(new java.awt.Color(0, 0, 0));
         jButton5.setFont(new java.awt.Font("URW Bookman L", 0, 18)); // NOI18N
@@ -114,14 +156,14 @@ public class ventanaGeneral extends javax.swing.JFrame {
             }
         });
         getContentPane().add(action3);
-        action3.setBounds(20, 650, 460, 26);
+        action3.setBounds(20, 650, 460, 29);
 
         jLabel3.setFont(new java.awt.Font("URW Bookman L", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Inventario");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(610, 530, 190, 20);
+        jLabel3.setBounds(610, 520, 190, 20);
 
         jToggleButton2.setBackground(new java.awt.Color(0, 0, 0));
         jToggleButton2.setFont(new java.awt.Font("URW Bookman L", 0, 18)); // NOI18N
@@ -211,9 +253,13 @@ public class ventanaGeneral extends javax.swing.JFrame {
         action2.setVisible(true);
         action3.setText(String.valueOf(map.maps[1][1]));
         action3.setVisible(true);
+        mapa.setVisible(false);
+        hacha.setVisible(false);
+        llave.setVisible(false);
         
         map.inventario();
         description.setEditable(false);
+        description.setText(null);
         
     }
     
@@ -314,6 +360,7 @@ public class ventanaGeneral extends javax.swing.JFrame {
                     action3.setVisible(false);
                     //inventario.setModel(String.valueOf(map.inventario[2][0]));
                     description.setText(String.valueOf(map.inventario[2][1]));      //Encuentras el hacha.
+                    hacha.setVisible(true);
                     break;
                 }
             
@@ -324,6 +371,7 @@ public class ventanaGeneral extends javax.swing.JFrame {
                     action2.setText(String.valueOf(map.maps[1][17]));
                     action2.setVisible(true);
                     action3.setVisible(false);
+                    description.setText(null);
                     break;
                 }
             
@@ -355,11 +403,7 @@ public class ventanaGeneral extends javax.swing.JFrame {
             
                     history.setText(String.valueOf(map.maps[23][0]));
                     action1.setText(String.valueOf(map.maps[23][1]));
-                    action2.setText(String.valueOf(map.maps[1][23]));
-                    if (inventario.getModel().equals(String.valueOf(map.inventario[2][0])))     //El botón 2 solo se activa si llevas el hacha.
-                        action2.setVisible(true);
-                    else
-                        action2.setVisible(false);
+                    action2.setVisible(false);
                     action3.setVisible(false);
                     break;
                 }
@@ -438,6 +482,8 @@ public class ventanaGeneral extends javax.swing.JFrame {
                     action2.setText(String.valueOf(map.maps[1][11]));
                     action2.setVisible(true);
                     action3.setVisible(false);
+                    description.setText(String.valueOf(map.inventario[0][1]));
+                    mapa.setVisible(true);
                     break;
                 }
             
@@ -463,6 +509,7 @@ public class ventanaGeneral extends javax.swing.JFrame {
                     action1.setText(String.valueOf(map.maps[18][1]));
                     action2.setVisible(false);
                     action3.setVisible(false);
+                    description.setText(null);
                     break;
                 }
             
@@ -492,21 +539,66 @@ public class ventanaGeneral extends javax.swing.JFrame {
             
                     history.setText(String.valueOf(map.maps[32][0]));
                     action1.setText(String.valueOf(map.maps[32][1]));
-                    action2.setText(String.valueOf(map.maps[1][32]));
-                    action3.setText(String.valueOf(map.maps[32][32]));
+//                    action2.setText(String.valueOf(map.maps[1][32]));
+                    action2.setVisible(false);
+                    action3.setVisible(false);
                     break;
                 }
             
-//            else if (history.getText().equals(String.valueOf(map.maps[32][0]))){
-//            
-//                    history.setText(String.valueOf(map.maps[10][0]));
-//                    action1.setText(String.valueOf(map.maps[10][1]));
-//                    action2.setText(String.valueOf(map.maps[1][10]));
-//                    action3.setText(String.valueOf(map.maps[10][10]));
-//                    break;
-//                }
-        //i++;
-    }
+            else if (history.getText().equals(String.valueOf(map.maps[32][0]))){
+            
+                    history.setText(String.valueOf(map.maps[34][0]));
+                    action1.setText(String.valueOf(map.maps[34][1]));
+                    action2.setVisible(false);
+                    action3.setVisible(false);
+                    break;
+                }
+            
+            else if (history.getText().equals(String.valueOf(map.maps[33][0]))){
+            
+                    iniciar();
+                    break;
+                }
+            
+            else if (history.getText().equals(String.valueOf(map.maps[34][0]))){
+            
+                    history.setText(String.valueOf(map.maps[35][0]));
+                    action1.setText(String.valueOf(map.maps[35][1]));
+                    action2.setText(String.valueOf(map.maps[1][35]));
+                    action2.setVisible(true);
+                    action3.setText(String.valueOf(map.maps[35][35]));
+                    action3.setVisible(true);
+                    break;
+                }
+            
+            else if (history.getText().equals(String.valueOf(map.maps[35][0]))){
+            
+                    history.setText(String.valueOf(map.maps[36][0]));
+                    action1.setText(String.valueOf(map.maps[36][1]));
+                    action2.setVisible(false);
+                    action3.setVisible(false);
+                    description.setText(null);
+                    break;
+                }
+            
+            else if (history.getText().equals(String.valueOf(map.maps[36][0]))){
+            
+                    iniciar();
+                    break;
+                }
+            
+            else if (history.getText().equals(String.valueOf(map.maps[32][0]))){
+            
+                    iniciar();
+                    break;
+                }
+            
+            else if (history.getText().equals(String.valueOf(map.maps[38][0]))){
+            
+                    iniciar();
+                    break;
+                }
+        }
             
         
     }//GEN-LAST:event_action1ActionPerformed
@@ -532,7 +624,8 @@ public class ventanaGeneral extends javax.swing.JFrame {
                     action2.setText(String.valueOf(map.maps[1][6]));
                     action2.setVisible(true);
                     action3.setVisible(false);
-                    description.setText(String.valueOf(map.inventario[3][1]));      //Encuentras el hacha.
+                    description.setText(String.valueOf(map.inventario[3][1]));      //Encuentras la llave.
+                    llave.setVisible(true);
                     break;
                 }
             
@@ -552,6 +645,8 @@ public class ventanaGeneral extends javax.swing.JFrame {
                     action2.setText(String.valueOf(map.maps[1][11]));
                     action2.setVisible(true);
                     action3.setVisible(false);
+                    description.setText(String.valueOf(map.inventario[0][1]));
+                    mapa.setVisible(true);
                     break;
                 }
             
@@ -674,8 +769,39 @@ public class ventanaGeneral extends javax.swing.JFrame {
                     action2.setText(String.valueOf(map.maps[1][11]));
                     action2.setVisible(true);
                     action3.setVisible(false);
+                    description.setText(String.valueOf(map.inventario[0][1]));
+                    mapa.setVisible(true);
                     break;
                 }
+            
+            else if (history.getText().equals(String.valueOf(map.maps[31][0]))){
+            
+                    history.setText(String.valueOf(map.maps[33][0]));
+                    action1.setText(String.valueOf(map.maps[33][1]));
+                    action2.setVisible(false);
+                    action3.setVisible(false);
+                    break;
+                }
+            
+            else if (history.getText().equals(String.valueOf(map.maps[34][0]))){
+            
+                    history.setText(String.valueOf(map.maps[36][0]));
+                    action1.setText(String.valueOf(map.maps[36][1]));
+                    action2.setVisible(false);
+                    action3.setVisible(false);
+                    break;
+                }
+            
+            else if (history.getText().equals(String.valueOf(map.maps[35][0]))){
+            
+                    history.setText(String.valueOf(map.maps[37][0]));
+                    action1.setText(String.valueOf(map.maps[37][1]));
+                    action2.setVisible(false);
+                    action3.setVisible(false);
+                    break;
+                }
+            
+            
         }
     }//GEN-LAST:event_action2ActionPerformed
 
@@ -713,6 +839,14 @@ public class ventanaGeneral extends javax.swing.JFrame {
                     break;
                 }
             
+            else if (history.getText().equals(String.valueOf(map.maps[35][0]))){
+            
+                    history.setText(String.valueOf(map.maps[38][0]));
+                    action1.setText(String.valueOf(map.maps[38][1]));
+                    action2.setVisible(false);
+                    action3.setVisible(false);
+                    break;
+                }
             
 
             
@@ -755,6 +889,40 @@ public class ventanaGeneral extends javax.swing.JFrame {
 //                }
         }
     }//GEN-LAST:event_action3ActionPerformed
+
+    private void mapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mapaActionPerformed
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_mapaActionPerformed
+
+    private void hachaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hachaActionPerformed
+        // TODO add your handling code here:
+        
+            if (history.getText().equals(String.valueOf(map.maps[23][0]))){
+                
+                    history.setText(String.valueOf(map.maps[31][0]));
+                    action1.setText(String.valueOf(map.maps[31][1]));
+                    action2.setText(String.valueOf(map.maps[1][31]));
+                    action2.setVisible(true);
+                    action3.setVisible(false);
+                    description.setText(String.valueOf(map.inventario[1][2]));
+            }    
+        
+    }//GEN-LAST:event_hachaActionPerformed
+
+    private void llaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_llaveActionPerformed
+        // TODO add your handling code here:
+        
+            if (history.getText().equals(String.valueOf(map.maps[34][0]))){
+                
+                    history.setText(String.valueOf(map.maps[36][0]));
+                    action1.setText(String.valueOf(map.maps[36][1]));
+                    action2.setVisible(false);
+                    action3.setVisible(false);
+                    description.setText(String.valueOf(map.inventario[1][3]));
+            }
+    }//GEN-LAST:event_llaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -800,6 +968,7 @@ public class ventanaGeneral extends javax.swing.JFrame {
     private javax.swing.JButton action2;
     private javax.swing.JButton action3;
     private javax.swing.JTextArea description;
+    private javax.swing.JButton hacha;
     private javax.swing.JLabel history;
     private javax.swing.JList<String> inventario;
     private javax.swing.JButton jButton5;
@@ -811,5 +980,7 @@ public class ventanaGeneral extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
+    private javax.swing.JButton llave;
+    private javax.swing.JButton mapa;
     // End of variables declaration//GEN-END:variables
 }
